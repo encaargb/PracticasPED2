@@ -1,0 +1,26 @@
+Manual de instalación, administración y configuración.
+
+Práctica 7: Sistema Cliente-Servidor de Chat (serv7 y cli7)
+
+Requisitos:
+-----------
+- Python 3.x instalado.
+- Sistema compatible con sockets (Linux/macOS recomendado).
+- No se requiere instalar librerías externas.
+
+Instalación:
+------------
+1. Clona o descarga el repositorio del proyecto.
+2. Entra en el directorio `p7/` donde se encuentran los archivos `serv7.py`, `cli7.py` y el `Makefile`.
+
+Configuración:
+--------------
+Se pueden definir dos variables de entorno para configurar IP y puerto sin modificar el código:
+
+- `CHAT_HOST`: Dirección IP del servidor (por defecto: localhost)
+- `CHAT_PORT`: Puerto del servidor (por defecto: 12347)
+
+Ejemplo:
+
+```bash
+CHAT_HOST=127.0.0.1 CHAT_PORT=9000 make server

@@ -1,0 +1,34 @@
+Manual de usuario.
+============================
+Kata de Bolos – Manual README
+============================
+
+Descripción
+-----------
+Este programa implementa la puntuación de una partida de bolos
+siguiendo las reglas estándar del juego.
+
+Funcionalidad
+-------------
+- Calcula la puntuación total de una partida completa (10 rondas)
+- Aplica correctamente los bonus por spare y strike
+- Incluye casos límite como partida perfecta o bonus en la última ronda
+
+Uso
+---
+El programa se ejecuta a través del fichero de tests:
+
+   make test
+
+Esto validará automáticamente el cálculo de puntuación usando diversos ejemplos:
+- Partida vacía
+- Tiros simples sin bonus
+- Spares y strikes individuales
+- Casos combinados
+- Partida perfecta (300 puntos)
+
+No se requiere interacción por parte del usuario.
+
+Licencia y autoría
+------------------
+Desarrollado por Lucía Sorni Scaletti,Encarnación Teresa González Buitrago e Inés Del Río García siguiendo la metodología TDD.

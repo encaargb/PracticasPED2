@@ -1,0 +1,38 @@
+Manual de instalación, administración y configuración.
+==============================
+Kata de Bolos – Manual INSTALL
+==============================
+
+Requisitos
+----------
+- Python 3 instalado (se recomienda >= 3.8)
+- Compatible con cualquier sistema Unix (Linux, macOS)
+
+Instalación
+-----------
+1. Clona el repositorio o copia los archivos a tu máquina local.
+
+2. Accede al directorio donde se encuentra la Kata (por ejemplo, p1/lucia):
+
+   cd p1/lucia
+
+3. Comprueba que están los siguientes archivos:
+   - bowling.py         → Código fuente
+   - test_bowling.py    → Tests unitarios
+   - Makefile           → Automatización de tests
+
+Configuración
+-------------
+No es necesario configurar nada adicional.
+Todos los archivos están preparados para su ejecución directa.
+
+Administración
+--------------
+Para ejecutar todos los tests, simplemente escribe en la terminal:
+
+   make test
+
+Esto ejecutará los tests definidos en test_bowling.py usando unittest.
+
+El archivo bowling.py puede ser modificado para añadir más lógica,
+siempre que se mantenga el cumplimiento de los tests.

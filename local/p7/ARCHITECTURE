@@ -1,0 +1,78 @@
+Manual de arquitectura.
+Documento de Arquitectura — Práctica 7
+Sistema Cliente-Servidor de Chat mediante sockets de Internet
+
+1. Objetivo del sistema
+-----------------------
+Este sistema implementa una aplicación de chat en red. Múltiples clientes se conectan a un servidor central, se identifican con un nombre (nick) único y pueden intercambiar mensajes en tiempo real. El servidor gestiona la entrada/salida de todos los clientes usando un único proceso y el mecanismo de multiplexación `select`.
+
+2. Arquitectura general
+-----------------------
+El sistema se basa en un modelo cliente-servidor con las siguientes características:
+
+- Servidor (`serv7.py`):
+  - Escucha conexiones entrantes.
+  - Gestiona múltiples clientes simultáneamente sin hilos ni procesos.
+  - Verifica que los nicks sean únicos.
+  - Reenvía los mensajes a todos los demás clientes.
+  - Informa de las entradas y salidas de usuarios.
+  - Al cerrarse, avisa a todos los clientes conectados.
+
+- Cliente (`cli7.py`):
+  - Se conecta al servidor.
+  - Introduce un nick.
+  - Envía y recibe mensajes en paralelo usando `select`.
+  - Permite salir del chat escribiendo `/salir`.
+
+3. Componentes del sistema
+--------------------------
+a) `serv7.py`
+- Socket principal (`servidor`): escucha en el puerto 12347.
+- Lista `sockets_activos`: contiene todos los sockets abiertos.
+- Diccionario `nicks`: asocia cada cliente a su nick.
+- Módulo `select`: permite gestionar todos los sockets en un único bucle.
+- Manejo de eventos:
+  - Nuevas conexiones.
+  - Primer mensaje (nick).
+  - Mensajes normales.
+  - Desconexión.
+
+b) `cli7.py`
+- Socket del cliente (`sock`): conexión con el servidor.
+- Uso de `select` con `sys.stdin` y `sock`: permite leer del teclado y del servidor sin hilos.
+- Entrada del usuario:
+  - Nick al inicio.
+  - Mensajes normales.
+  - Comando `/salir`.
+
+4. Diagrama de bloques (simplificado)
+-------------------------------------
+          ┌──────────────┐
+          │  serv7.py    │
+          │ (Servidor)   │
+          └────┬─▲─┬──────┘
+               │ │ │
+       ┌───────┘ │ └───────┐
+       ▼         ▼         ▼
+   cli7.py   cli7.py   cli7.py
+   Cliente   Cliente   Cliente
+
+5. Gestión de errores y desconexiones
+-------------------------------------
+- Si un cliente envía un nick duplicado, el servidor lo rechaza.
+- Si un cliente se desconecta, se notifica a los demás.
+- Si el servidor se apaga, todos los clientes reciben un mensaje de cierre.
+- Si el cliente pulsa `/salir`, cierra su conexión correctamente.
+
+6. Tecnologías utilizadas
+--------------------------
+- Lenguaje: Python 3
+- Módulos estándar: socket, select, os, sys, setproctitle
+- Comunicación: TCP sobre IPv4
+- Multiplexación: select.select() sin hilos ni procesos
+
+7. Configuración y personalización
+----------------------------------
+Se pueden personalizar IP y puerto mediante variables de entorno:
+- CHAT_HOST (por defecto: localhost)
+- CHAT_PORT (por defecto: 12347)

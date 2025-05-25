@@ -1,0 +1,41 @@
+Manual de usuario.
+Práctica 7: Chat Cliente-Servidor (cli7 / serv7)
+
+Uso del servidor:
+-----------------
+1. Ejecuta el servidor con:
+
+   make server
+
+2. El servidor escuchará en el puerto 12347 (o el configurado mediante CHAT_PORT)
+   y aceptará múltiples conexiones simultáneamente.
+
+Uso del cliente:
+----------------
+1. Ejecuta el cliente con:
+
+   make client
+
+2. Introduce un nick cuando se te pida.
+   - Si ese nick ya está en uso, la conexión será rechazada.
+
+3. Una vez conectado, escribe tus mensajes y pulsa Enter para enviarlos.
+   - El mensaje será reenviado automáticamente a todos los demás clientes conectados.
+
+4. Para salir del chat, escribe:
+
+   /salir
+
+Características:
+----------------
+- Comunicación en tiempo real entre múltiples clientes.
+- El servidor reenvía todos los mensajes a todos los participantes.
+- Cada mensaje va precedido del nombre del usuario que lo envía.
+- Si un usuario se desconecta, se informa al resto.
+- Si el servidor se apaga, los clientes son notificados automáticamente.
+- No se utilizan hilos ni procesos, solo `select` en un único proceso.
+
+Notas:
+------
+- El sistema solo transmite texto (no soporta archivos ni comandos especiales).
+- Funciona en cualquier sistema compatible con Python 3 y sockets TCP.
